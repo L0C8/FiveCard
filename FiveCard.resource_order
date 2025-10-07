@@ -17,6 +17,8 @@
     {"name":"game","order":1,"path":"folders/Objects/game.yy",},
     {"name":"ui","order":3,"path":"folders/Objects/ui.yy",},
     {"name":"menu","order":1,"path":"folders/Objects/ui/menu.yy",},
+    {"name":"debug","order":2,"path":"folders/Objects/ui/debug.yy",},
+    {"name":"debug","order":1,"path":"folders/Sprites/debug.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"rm_menu","order":1,"path":"rooms/rm_menu/rm_menu.yy",},

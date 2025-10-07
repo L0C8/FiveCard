@@ -14,5 +14,6 @@ _debug_draw = function(){
 }
 
 _debug_inc = function(){
+	show_debug_message("um")
 	obj_game._debug_inc(_card_index);
 }
