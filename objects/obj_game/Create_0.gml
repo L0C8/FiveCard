@@ -16,6 +16,12 @@ _card[3] = -1;
 _card[4] = -1;
 _bet = 0;
 
+_card_action[0] = false;
+_card_action[1] = false;
+_card_action[2] = false;
+_card_action[3] = false;
+_card_action[4] = false;
+
 // ui 
 _card_obj[0] = card_obj_00; 
 _card_obj[1] = card_obj_01; 
@@ -25,22 +31,28 @@ _card_obj[4] = card_obj_04;
 
 /// Function
 
+// init
+_init = function(){
+	_set_cards_hidden();
+	
+}
+
 // card functions 
 _get_card_name = function(_arg_index){
 	var _card = "";
 	if(real(_arg_index) >= 0 && real(_arg_index) <= 51)
-	_card = _get_card_value(_arg_index)+" of "+_get_card_suite(_arg_index);
+		_card = _get_card_value(_arg_index)+" of "+_get_card_suite(_arg_index);
 	return _card;
 }
 
 _get_card_value = function(_arg_index){
 	var _card = "";
-	if(		
+		if(		
 			real(_arg_index) == 0  || 
 			real(_arg_index) == 13 || 
 			real(_arg_index) == 26 || 
 			real(_arg_index) == 39)
-		_card = "Ace";
+				_card = "Ace";
         else if(
                         real(_arg_index) == 1  ||
                         real(_arg_index) == 14 ||
@@ -139,9 +151,13 @@ _set_card_objects = function(){
 		_card_obj[i].image_index = real(_card[i]);	
 }
 
-_set_card_hidden = function(){
+_set_card_hidden = function(_arg_index){
+	_card_obj[real(_arg_index)].image_index = 52+real(_player_card);	
+}
+
+_set_cards_hidden = function(){
 	for(var i=0; i<5;i++)
-		_card_obj[i].image_index = 52+real(_player_card);	
+		_set_card_hidden(i);
 }
 
 // game functions
@@ -181,11 +197,15 @@ _draw_hand = function(){
 	}
 }
 	
-/// Start Game
-_set_card_hidden();
+_draw_card = function(_arg_card){
+	_card[real(_arg_card)] = irandom_range(0,51);
+}
 
 // debug
 _debug_rng = function(){
 	_draw_hand();
 	_set_card_objects();
 }
+
+/// Start Game
+_init();
