@@ -13,6 +13,43 @@ _card[3] = 0;
 _card[4] = 0;
 _bet = 0;
 
+_get_card_name = function(_arg_index){
+	var _card = "";
+	_card = _get_card_value(_arg_index)+" of "+_get_card_suite(_arg_index);
+	return _card;
+}
+
+_get_card_value = function(_arg_index){
+	var _card = "";
+	if(		
+			real(_arg_index) == 0  || 
+			real(_arg_index) == 13 || 
+			real(_arg_index) == 26 || 
+			real(_arg_index) == 39)
+		_card = "Ace";
+	else if(
+			real(_arg_index) == 1  ||
+			real(_arg_index) == 14 ||
+			real(_arg_index) == 27 || 
+			real(_arg_index) == 40)
+		_card = "Two"; 
+	else if(
+			real(_arg_index) == 11 ||
+			real(_arg_index) == 24 ||
+			real(_arg_index) == 37 || 
+			real(_arg_index) == 50)
+		_card = "Queen";
+	else if(
+			real(_arg_index) == 12 ||
+			real(_arg_index) == 25 ||
+			real(_arg_index) == 38 || 
+			real(_arg_index) == 51)
+		_card = "King";
+	else
+		_card = "test";
+	return _card;
+}
+
 _get_card_suite = function(_arg_index){
 	var _card = "";
 	if(real(_arg_index) >= 0 && (real(_arg_index) < 12)){
@@ -59,6 +96,10 @@ _win = function(_arg_type, _arg_value){
 }
 	
 // debug
-_debug_rng(){
-	
+_debug_rng = function(){
+	_card[0] = irandom_range(0,51);
+	_card[1] = irandom_range(0,51);
+	_card[2] = irandom_range(0,51);
+	_card[3] = irandom_range(0,51);
+	_card[4] = irandom_range(0,51);
 }
