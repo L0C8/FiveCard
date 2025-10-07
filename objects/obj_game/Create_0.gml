@@ -15,7 +15,9 @@ _card[2] = -1;
 _card[3] = -1;
 _card[4] = -1;
 _bet = 0;
+_dif = 0;
 _win_string = "";
+_win_index = -1;
 
 _card_action[0] = false;
 _card_action[1] = false;
@@ -242,30 +244,41 @@ _check_win = function(){
 
 	var _win_type = "High Card";
 	if(_straight && _flush){
-		if(_royal)
+		if(_royal){
 			_win_type = "Royal Flush";
-		else
+			_win_index = 0;
+		}
+		else{
 			_win_type = "Straight Flush";
+			_win_index = 1;
+		}
 	}else if(_four_kind){
 		_win_type = "Four of a Kind";
+		_win_index = 2;
 	}else if(_three_kind && _pairs > 0){
 		_win_type = "Full House";
+		_win_index = 3;
 	}else if(_flush){
 		_win_type = "Flush";
+		_win_index = 4;
 	}else if(_straight){
 		_win_type = "Straight";
+		_win_index = 5;
 	}else if(_three_kind){
 		_win_type = "Three of a Kind";
+		_win_index = 6; 
 	}else if(_pairs >= 2){
 		_win_type = "Two Pair";
+		_win_index = 7;
 	}else if(_pairs == 1){
 		_win_type = "One Pair";
+		_win_index = 8;
 	}else{
 		_win_type = string(_get_card_value(_high_card_value)) + " High";
 	}
-
 	_win_string = _win_type;
 }
+
 // draw functions
 _draw_hand = function(){
 	for(var i=0; i<5; i++){

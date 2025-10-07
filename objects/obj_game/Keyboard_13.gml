@@ -1,5 +1,5 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-obj_game._check_win();
-show_debug_message(string(obj_game._win_index))
+
+_check_win()
