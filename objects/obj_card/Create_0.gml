@@ -12,3 +12,7 @@ _debug_draw = function(){
 	obj_game._draw_card(_card_index);
 	obj_game._set_card_objects();
 }
+
+_debug_inc = function(){
+	obj_game._debug_inc(_card_index);
+}

@@ -193,6 +193,27 @@ _draw_card = function(_arg_card){
 }
 
 // debug
+_debug_inc = function(_arg_card){
+	var _card_slot = floor(real(_arg_card));
+	var _card_count = array_length(_card);
+
+	if(_card_count <= 0)
+		return;
+
+	if(_card_slot < 0 || _card_slot >= _card_count)
+		return;
+
+	var _value = _card[_card_slot];
+
+	if(!is_real(_value) || _value < 0)
+		_value = 0;
+	else
+		_value = (_value + 1) mod 52;
+
+	_card[_card_slot] = _value;
+	_set_card_objects();
+}
+
 _debug_rng = function(){
 	_draw_hand();
 	_set_card_objects();
