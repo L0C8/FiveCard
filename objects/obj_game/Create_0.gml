@@ -1,20 +1,33 @@
 /// @description !
 
+/// Variables 
+
 // load player data 
 _chips = 0;
 _player_name = "";
 _player_id = ""; 
 
 // game data
-_card[0] = 0;
-_card[1] = 0;
-_card[2] = 0;
-_card[3] = 0;
-_card[4] = 0;
+_card[0] = -1;
+_card[1] = -1;
+_card[2] = -1;
+_card[3] = -1;
+_card[4] = -1;
 _bet = 0;
 
+// ui 
+_card_obj[0] = card_obj_00; 
+_card_obj[1] = card_obj_01; 
+_card_obj[2] = card_obj_02; 
+_card_obj[3] = card_obj_03; 
+_card_obj[4] = card_obj_04; 
+
+/// Function
+
+// card functions 
 _get_card_name = function(_arg_index){
 	var _card = "";
+	if(real(_arg_index) >= 0 && real(_arg_index) <= 51)
 	_card = _get_card_value(_arg_index)+" of "+_get_card_suite(_arg_index);
 	return _card;
 }
@@ -94,8 +107,8 @@ _get_card_value = function(_arg_index){
                         real(_arg_index) == 50)
                 _card = "Queen";
 	else if(
-			real(_arg_index) == 12 ||
-			real(_arg_index) == 25 ||
+						real(_arg_index) == 12 ||
+						real(_arg_index) == 25 ||
                         real(_arg_index) == 38 ||
                         real(_arg_index) == 51)
                 _card = "King";
@@ -120,6 +133,12 @@ _get_card_suite = function(_arg_index){
 	return _card;
 }
 
+_set_card_objects = function(){
+	for(var i=0; i<5;i++)
+		_card_obj[i].image_index = real(_card[i]);	
+}
+
+// game functions
 _check_win = function(){
         return "??"
 }
@@ -148,12 +167,16 @@ _win = function(_arg_type, _arg_value){
 			break;
 	}
 }
+
+// draw functions
+_draw_hand = function(){
+	for(var i=0; i<5; i++){
+		_card[i] = irandom_range(0,51);
+	}
+}
 	
 // debug
 _debug_rng = function(){
-	_card[0] = irandom_range(0,51);
-	_card[1] = irandom_range(0,51);
-	_card[2] = irandom_range(0,51);
-	_card[3] = irandom_range(0,51);
-	_card[4] = irandom_range(0,51);
+	_draw_hand();
+	_set_card_objects();
 }
