@@ -21,6 +21,5 @@
   "ResourceOrderSettings": [
     {"name":"rm_menu","order":1,"path":"rooms/rm_menu/rm_menu.yy",},
     {"name":"obj_game","order":1,"path":"objects/obj_game/obj_game.yy",},
-    {"name":"obj_menu_main","order":2,"path":"objects/obj_menu_main/obj_menu_main.yy",},
   ],
 }
