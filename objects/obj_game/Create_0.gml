@@ -6,6 +6,7 @@
 _chips = 0;
 _player_name = "";
 _player_id = ""; 
+_player_card = 4;
 
 // game data
 _card[0] = -1;
@@ -138,6 +139,11 @@ _set_card_objects = function(){
 		_card_obj[i].image_index = real(_card[i]);	
 }
 
+_set_card_hidden = function(){
+	for(var i=0; i<5;i++)
+		_card_obj[i].image_index = 52+real(_player_card);	
+}
+
 // game functions
 _check_win = function(){
         return "??"
@@ -175,6 +181,9 @@ _draw_hand = function(){
 	}
 }
 	
+/// Start Game
+_set_card_hidden();
+
 // debug
 _debug_rng = function(){
 	_draw_hand();
