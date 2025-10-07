@@ -154,18 +154,118 @@ _set_cards_hidden = function(){
 
 // game functions
 _check_win = function(){
-	var _win_type = "dunno";
-	// if One Pair
-	if(){
-		_win_type = "One Pair";
+	var _hand_size = array_length(_card);
+	if(_hand_size < 5){
+		_win_string = "";
+		return;
 	}
-	// if Two Pair
-	else if(true){
-		_win_type = "Two Pair";
-	}
-	_win_string = "Win: "+_win_type;
-}
 
+	var _values = array_create(5, 0);
+	var _suits = array_create(5, 0);
+	var _value_count = array_create(13, 0);
+	var _high_card_value = -1;
+	var _high_card_rank = -1;
+	var _valid_hand = true;
+
+	for(var i = 0; i < 5; i++){
+		var _raw = _card[i];
+		if(!is_real(_raw) || _raw < 0){
+			_valid_hand = false;
+			break;
+		}
+
+		_raw = floor(_raw);
+		var _value = _raw mod 13;
+		var _suit = _raw div 13;
+
+		_values[i] = _value;
+		_suits[i] = _suit;
+		_value_count[_value] += 1;
+
+		var _rank_order = (_value == 0) ? 13 : _value;
+		if(_rank_order > _high_card_rank){
+			_high_card_rank = _rank_order;
+			_high_card_value = _value;
+		}
+	}
+
+	if(!_valid_hand){
+		_win_string = "Invalid Hand";
+		return;
+	}
+
+	var _pairs = 0;
+	var _three_kind = false;
+	var _four_kind = false;
+	for(var r = 0; r < 13; r++){
+		var _count = _value_count[r];
+		if(_count == 4)
+			_four_kind = true;
+		else if(_count == 3)
+			_three_kind = true;
+		else if(_count == 2)
+			_pairs += 1;
+	}
+
+	var _flush = true;
+	for(var j = 1; j < 5; j++){
+		if(_suits[j] != _suits[0]){
+			_flush = false;
+			break;
+		}
+	}
+
+	var _sorted = array_create(5, 0);
+	for(var s = 0; s < 5; s++)
+		_sorted[s] = _values[s];
+
+	array_sort(_sorted, function(_a, _b){
+		return _a > _b;
+	});
+
+	var _straight = true;
+	for(var c = 1; c < 5; c++){
+		if(_sorted[c] == _sorted[c - 1] || _sorted[c] != (_sorted[0] + c)){
+			_straight = false;
+			break;
+		}
+	}
+
+	if(!_straight){
+		if(_sorted[0] == 0 && _sorted[1] == 1 && _sorted[2] == 2 && _sorted[3] == 3 && _sorted[4] == 4)
+			_straight = true;
+		else if(_sorted[0] == 0 && _sorted[1] == 9 && _sorted[2] == 10 && _sorted[3] == 11 && _sorted[4] == 12)
+			_straight = true;
+	}
+
+	var _royal = (_straight && _sorted[0] == 0 && _sorted[1] == 9 && _sorted[2] == 10 && _sorted[3] == 11 && _sorted[4] == 12);
+
+	var _win_type = "High Card";
+	if(_straight && _flush){
+		if(_royal)
+			_win_type = "Royal Flush";
+		else
+			_win_type = "Straight Flush";
+	}else if(_four_kind){
+		_win_type = "Four of a Kind";
+	}else if(_three_kind && _pairs > 0){
+		_win_type = "Full House";
+	}else if(_flush){
+		_win_type = "Flush";
+	}else if(_straight){
+		_win_type = "Straight";
+	}else if(_three_kind){
+		_win_type = "Three of a Kind";
+	}else if(_pairs >= 2){
+		_win_type = "Two Pair";
+	}else if(_pairs == 1){
+		_win_type = "One Pair";
+	}else{
+		_win_type = string(_get_card_value(_high_card_value)) + " High";
+	}
+
+	_win_string = _win_type;
+}
 // draw functions
 _draw_hand = function(){
 	for(var i=0; i<5; i++){
