@@ -38,7 +38,6 @@ _card_obj[4] = card_obj_04;
 _init = function(){
 	_set_card_objects();
 	_set_cards_hidden();
-	
 }
 
 // card functions 
