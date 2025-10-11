@@ -1,6 +1,8 @@
 /// @description !
 _value = 0;
 _spinner_color = make_color_rgb(255,0,0);
+_spinner_fontcolor = make_color_rgb(255,255,255);
+_spinner_outline_color = make_color_rgb(0,0,0);
 _spinner_length = 32;
 _spinner_width = 32;
 _spinner_button_height = _spinner_length * 0.5;
